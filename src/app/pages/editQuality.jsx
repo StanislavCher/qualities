@@ -1,27 +1,16 @@
 import React, { useState, useEffect } from "react";
 import EditForm from "../components/ui/editForm";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-axios.interceptors.response.use((res) => res,
-    function (error) {
-        // console.log('Interceptor')
-        const expectedError =
-            error.response
-            && error.response.status >= 400
-            && error.response.status < 500
-        if (!expectedError) {
-            // console.log('UnExpected error', error)
-            console.log('UnExpected error')
-        }
-        return Promise.reject(error)
-    })
+// import axios from "axios";
+import httpService from "../services/http.service";
+
 const EditQualityPage = () => {
     const id = useParams().id;
     const [qualities, setQualities] = useState([])
 
     useEffect(async () => {
         try {
-            const {data} = await axios.get(`http://localhost:4000/api/v1/quality/${id}`)
+            const {data} = await httpService.get(`http://localhost:4000/api/v1/quality/${id}`)
             setQualities(data.content)
             // console.log(data.content)
         }
@@ -35,7 +24,7 @@ const EditQualityPage = () => {
     const handleAdd = async (data) => {
         //console.log(data);
         try {
-          await axios.put(`http://localhost:4000/api/v1/quality/${id}`, data)
+          await httpService.put(`http://localhost:4000/api/v1/quality/${id}`, data)
                .then(res => console.log(res.data.content))
 
           // await axios.post(`https://64c2cbc5eb7fd5d6ebd0567f.mockapi.io/api/v1/testData`, data)
