@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from "react";
 import EditForm from "../components/ui/editForm";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-axios.interceptors.response.use((res) => res,
-    function (error) {
-        // console.log('Interceptor')
-        const expectedError =
-            error.response
-            && error.response.status >= 400
-            && error.response.status < 500
-        if (!expectedError) {
-            console.log('UnExpected error', error)
-        }
-        return Promise.reject(error)
-    })
+// <<<<<<< HEAD
+// import axios from "axios";
+// axios.interceptors.response.use((res) => res,
+//     function (error) {
+//         // console.log('Interceptor')
+//         const expectedError =
+//             error.response
+//             && error.response.status >= 400
+//             && error.response.status < 500
+//         if (!expectedError) {
+//             console.log('UnExpected error', error)
+//         }
+//         return Promise.reject(error)
+//     })
+// =======
+// import axios from "axios";
+import httpService from "../services/http.service";
+
+// >>>>>>> 3c9f8cf833be3f561ac8b089537582cf2fe5a182
 const EditQualityPage = () => {
     const id = useParams().id;
     const [qualities, setQualities] = useState([])
 
     useEffect(async () => {
         try {
-            const {data} = await axios.get(`http://localhost:4000/api/v1/quality/${id}`)
+// <<<<<<< HEAD
+            // const {data} = await axios.get(`http://localhost:4000/api/v1/quality/${id}`)
+// =======
+            const {data} = await httpService.get(`http://localhost:4000/api/v1/quality/${id}`)
+// >>>>>>> 3c9f8cf833be3f561ac8b089537582cf2fe5a182
             setQualities(data.content)
             // console.log(data.content)
         }
@@ -32,9 +42,15 @@ const EditQualityPage = () => {
 
 
     const handleAdd = async (data) => {
-        console.log(data);
+// <<<<<<< HEAD
+//         console.log(data);
+//         try {
+//           await axios.put(`http://localhost:4000/api/v1/quality/${id}`, data)
+// =======
+        //console.log(data);
         try {
-          await axios.put(`http://localhost:4000/api/v1/quality/${id}`, data)
+          await httpService.put(`http://localhost:4000/api/v1/quality/${id}`, data)
+// >>>>>>> 3c9f8cf833be3f561ac8b089537582cf2fe5a182
                .then(res => console.log(res.data.content))
 
           // await axios.post(`https://64c2cbc5eb7fd5d6ebd0567f.mockapi.io/api/v1/testData`, data)
@@ -50,7 +66,12 @@ const EditQualityPage = () => {
             // if (expectedError) console.log('Expected error', e)
             // if (!expectedError) console.log('UnExpected error', e)
             // console.log('Error')
-            console.log('Expected error', e)
+// <<<<<<< HEAD
+            // console.log('Expected error', e)
+{/*=======*/}
+            // console.log('Expected error', e)
+            console.log('Expected error')
+// >>>>>>> 3c9f8cf833be3f561ac8b089537582cf2fe5a182
         }
     }
 
